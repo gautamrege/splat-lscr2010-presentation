@@ -1,44 +1,64 @@
-body {
-	margin: 20;
-	padding: 20;
-  border-style:solid;
-  border-color:#0000ff;
-}
-	
-/*
-body {
-	background-color:#1A1A1A;
-	color:#FFFFFF;
-	font-family:Arial,Helvetica,sans-serif;
-  border-style:solid;
-}
-*/
-
-.logo-link {
-  position: absolute;
-  top: 22px;
-  left: 160px;
-  width: 180px;
-  height: 122px;
-  background-color: transparent;
-  border-style:solid;
+body #preso .slide {
+  width: 990px;
+  height: 710px;
+  padding:10px;
+  border:5px solid gray;
+  background:#ffffff url('splat.png') no-repeat right top;
 }
 
-.box {
-	display: table;
-	margin: 30px auto 0 auto;
-	padding: 20px;
-	font-size: 12px;
-	line-height: 18px;
-  background-color:lightBlue;
+.logo {
+   position: absolute;
+   left: 710px;
+   top: 460px;
 }
-	
+
 .splat {
   color: red;
 }
 
 .highlight {
   color:red;
+}
+
+
+.top-left {
+   position: absolute;
+   left: 25px;
+   top: 25px;
+}
+.top-right {
+   position: absolute;
+   left: 800px;
+   top: 25px;
+}
+.bottom-left {
+   position: absolute;
+   left: 50px;
+   top: 600px;
+}
+.bottom-right {
+   position: absolute;
+   left: 800px;
+   top: 600px;
+}
+.side-right {
+   position: absolute;
+   left: 800px;
+   top: 250px;
+}
+.side-left {
+   position: absolute;
+   left: 50px;
+   top: 250px;
+}
+
+.top-middle {
+   position: absolute;
+   left:400px;
+   top: 50px;
+}
+
+.bottom-middle {
 }
 
 img {

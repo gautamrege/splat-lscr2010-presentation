@@ -1,77 +1,74 @@
-!SLIDE commandline incremental
+!SLIDE 
 
-# Example - Send customized SMS in bulk
+# Installing / Configuring SPlat
 
-    $ gw1 = Splat::Base.new('clickatell')
-    <% Spat::Base#>
-    $ gw1.send_bulk_sms("Hi %s asdf",
-              :options => { 'a' => 'b',
-                             1 => 2 
-              })
-    irb> Sent
+    @@@ruby
+    $ gem install josh-splat
+
+    # For Rails apps
+    $ ./script/generate splat 
+
+    # Important configuration files
+    $ config/splat.yml
+    $ config/vendors.yml
 
 !SLIDE 
 
-# Installing SPlat
+# Demo1 - Send a simple SMS
 
-    $ gem install splat
+!SLIDE 
 
-!SLIDE
-
-# Initializing the SMS gateways
-
-!SLIDE
-
-# Configuring SPlat
-
-!SLIDE bullets
-
-# Mobile number formats
-
-* +1 501-234-8473
-* 001 5012348473
-* +5012348473
-* 5012348473
-* All vendors have their own formats.
-
-!SLIDE
-
-# Splat default number format
+# Demo1 - Send a simple SMS
 
     @@@ruby
-    /^\+\d{1,4}\ \d{8,12}$/  # +91 9812345867
+    require 'lib/splat'
+        
+    number = '+91 9960054954'
+    gw1 = Splat::Base.new(:clickatell)
 
+    msg = "Fall SPlat on your face!"
+    p gw1.send_sms(msg, number)
 
-!SLIDE bullets incremental
+!SLIDE center 
 
-# Splat callback
+# Demo2 - Multiple gateways together
 
-* Application can register a callback.
-* :before_send 
-* Manipulate the number to splat format.
+!SLIDE 
 
-!SLIDE bullets 
+# Multiple gateways together
 
-# Demo1 - simple send SMS
+    @@@ruby
+    numbers=['+1 6096138032', '+91 9881395656']
 
-* Send SMS via vMobo
-* Show the vMobo report
+    clickatell = Splat::Base.new(:clickatell)
+    bulksms = Splat::Base.new(:bulksmspune)
 
-!SLIDE bullets 
+    msg = "T: Fall SPlat on your face!"
+    numbers.each do |number|
+      if number =~ /^\+1\ /
+        clickatell.send_sms(msg, number)
+      elsif number =~ /^\+91\ /
+        bulksms.send_sms(msg, number) 
+      end
+    end
 
-# Demo2 - switch gateways
+!SLIDE
 
-* Change vMobo to bulksms
-* Show the bulksms report
+# Demo3 - Custom bulk messages 
 
-!SLIDE bullets 
+!SLIDE
 
-# Demo3 - both together
+# Custom bulk messages 
 
-* Show reports in both
+    @@@ruby
+    gw = Splat::Base.new(:clickatell)
 
-!SLIDE bullets 
+    custom_msg = "Hi $1, hold on to your $2."
+    options = {
+     '+91 9960054954' => ['Jiren', 'shorts'],
+     '+91 9881395656' => ['Gautam' , 'stocks'],
+     '+91 9880397111' => ['Jane' , 'coffee']
+    }
 
-# Demo4 - custom bulk SMS
-
-* Customized SMS via vMobo and bulksms
+    gw.send_bulk_sms_with_insertion(custom_msg,
+                                options)
